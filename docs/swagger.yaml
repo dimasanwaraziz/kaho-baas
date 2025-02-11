@@ -1,0 +1,48 @@
+basePath: /v1
+info:
+  contact: {}
+  description: swagger api for Kaho BaaS
+  title: Kaho BaaS API
+  version: "1.0"
+paths:
+  /account:
+    get:
+      produces:
+      - application/json
+      responses: {}
+      summary: Get Detail Account
+      tags:
+      - Account
+  /account/sessions/current:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      summary: Logout
+      tags:
+      - Account
+  /account/sessions/email:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Untuk email, bisa menggunakan email atau username
+      parameters:
+      - description: Email or username
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: Password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Login
+      tags:
+      - Account
+swagger: "2.0"

@@ -62,3 +62,24 @@ watch:
         fi
 
 .PHONY: all build run test clean watch docker-run docker-down itest
+
+# Database migrations
+migrate-force:
+	@echo "Forcing migration version..."
+	@read -p "Enter version to force: " version; \
+	set -a; source .env; set +a; \
+	migrate -path db/migrations -database "postgresql://$${DB_USERNAME}:$${DB_PASSWORD}@$${DB_HOST}:$${DB_PORT}/$${DB_DATABASE}?sslmode=disable" force $$version
+
+migrate-up:
+	@echo "Running migrations up..."
+	@set -a; source .env; set +a; \
+	migrate -path db/migrations -database "postgresql://$${DB_USERNAME}:$${DB_PASSWORD}@$${DB_HOST}:$${DB_PORT}/$${DB_DATABASE}?sslmode=disable" up
+
+migrate-down:
+	@echo "Running migrations down..."
+	@set -a; source .env; set +a; \
+	migrate -path db/migrations -database "postgresql://$${DB_USERNAME}:$${DB_PASSWORD}@$${DB_HOST}:$${DB_PORT}/$${DB_DATABASE}?sslmode=disable" down
+
+create-migration:
+	@read -p "Enter migration name: " name; \
+	migrate create -ext sql -dir db/migrations -tz UTC $$name

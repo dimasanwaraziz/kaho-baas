@@ -38,6 +38,11 @@ func gracefulShutdown(fiberServer *server.FiberServer, done chan bool) {
 	done <- true
 }
 
+// Package main
+//	@title			Kaho BaaS API
+//	@version		1.0
+//	@description	swagger api for Kaho BaaS
+//	@BasePath		/v1
 func main() {
 
 	server := server.New()
